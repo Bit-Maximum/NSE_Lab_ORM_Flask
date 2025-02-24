@@ -1,0 +1,63 @@
+{% import "marcos/print_table.html" as macros %}
+<!DOCTYPE HTML>
+<html lang="ru">
+<head>
+    <title>Самые высокие здания и сооружения</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <h2 id="header">Содержание</h2>
+    <ul>
+        <li><a href="#all">Данные по типу здания</a></li>
+        <li><a href="#types">Данные по типу здания</a></li>
+        <li><a href="#country">Данные по стране</a></li>
+        <li><a href="#year">Данные по году</a></li>
+        <li><a href="#range">Здания в интервале 2000-2018</a></li>
+    </ul>
+
+    {{
+            macros.render_table(
+                "Список зданий",
+                buildings.head,
+                buildings.body,
+                "all"
+            )
+    }}
+
+    {{
+            macros.render_table(
+                "Типы зданий",
+                type_data.head,
+                type_data.body,
+                "types"
+            )
+    }}
+
+    {{
+            macros.render_table(
+                "Страны",
+                country.head,
+                country.body,
+                "country"
+            )
+    }}
+
+    {{
+            macros.render_table(
+                "Года",
+                year.head,
+                year.body,
+                "year"
+            )
+    }}
+
+    {{
+            macros.render_table(
+                "Здания за 2000-2018 гг.",
+                year_by_range_data.head,
+                year_by_range_data.body,
+                "range"
+            )
+    }}
+</body>
+</html>
