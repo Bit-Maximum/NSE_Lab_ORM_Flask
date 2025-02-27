@@ -1,14 +1,5 @@
-import csv
-
-from app import app
 from config import db
 
-#
-# from sqlalchemy.orm import declarative_base
-#
-# db.Model = declarative_base()
-#
-# db.metadata.clear()
 
 class Country(db.Model):
     __tablename__ = "country"
@@ -34,9 +25,7 @@ class City(db.Model):
     country_id = db.Column(db.Integer, db.ForeignKey("country.id"))
 
     country = db.relationship("Country", back_populates="cities")
-    buildings = db.relationship(
-        "Building", cascade="all, delete"
-    )
+    buildings = db.relationship("Building", cascade="all, delete")
 
     def __init__(self, name, country_id):
         self.name = name
@@ -53,9 +42,7 @@ class TypeBuilding(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column("Тип", db.String(100), nullable=False)
 
-    buildings = db.relationship(
-        "Building", cascade="all, delete"
-    )
+    buildings = db.relationship("Building", cascade="all, delete")
 
     def __init__(self, name):
         self.name = name
@@ -92,45 +79,58 @@ class Building(db.Model):
         )
 
 
-app.app_context().push()
-with app.app_context():
-    db.create_all()
+"""
+Миграция базы данных
+"""
+
+#
+# from sqlalchemy.orm import declarative_base
+#
+# db.Model = declarative_base()
+#
+# db.metadata.clear()
+
+
+#
+# app.app_context().push()
+# with app.app_context():
+#     db.create_all()
 
 #
 # if __name__ == '__main__':
 
-    # items = [
-    #     'Небоскрёб', 'Антенная мачта', 'Бетонная башня', 'Радиомачта', 'Гиперболоидная башня', 'Дымовая труба',
-    #     'Решётчатая мачта',
-    #     'Башня', 'Мост'
-    # ]
-    # for item in items:
-    #     db.session.add(TypeBuilding(item))
-    # db.session.commit()
-    #
-    # # Load Country data
-    # with open('data/country.csv', 'r') as f:
-    #     reader = csv.reader(f)
-    #     heading = next(reader)
-    #     for row in reader:
-    #         country = Country(*row)
-    #         db.session.add(country)
-    #     db.session.commit()
-    # #
-    # # # Load Cities data
-    # with open('data/city.csv', 'r') as f:
-    #     reader = csv.reader(f)
-    #     heading = next(reader)
-    #     for row in reader:
-    #         country = City(*row)
-    #         db.session.add(country)
-    #     db.session.commit()
+# items = [
+#     'Небоскрёб', 'Антенная мачта', 'Бетонная башня', 'Радиомачта', 'Гиперболоидная башня', 'Дымовая труба',
+#     'Решётчатая мачта',
+#     'Башня', 'Мост'
+# ]
+# for item in items:
+#     db.session.add(TypeBuilding(item))
+# db.session.commit()
+#
+# # Load Country data
+# with open('data/country.csv', 'r') as f:
+#     reader = csv.reader(f)
+#     heading = next(reader)
+#     for row in reader:
+#         country = Country(*row)
+#         db.session.add(country)
+#     db.session.commit()
+# #
+# # # Load Cities data
+# with open('data/city.csv', 'r') as f:
+#     reader = csv.reader(f)
+#     heading = next(reader)
+#     for row in reader:
+#         country = City(*row)
+#         db.session.add(country)
+#     db.session.commit()
 
-    # # Load Buildings data
-    # with open('data/building.csv', 'r') as f:
-    #     reader = csv.reader(f)
-    #     heading = next(reader)
-    #     for row in reader:
-    #         country = Building(*row)
-    #         db.session.add(country)
-    #     db.session.commit()
+# # Load Buildings data
+# with open('data/building.csv', 'r') as f:
+#     reader = csv.reader(f)
+#     heading = next(reader)
+#     for row in reader:
+#         country = Building(*row)
+#         db.session.add(country)
+#     db.session.commit()

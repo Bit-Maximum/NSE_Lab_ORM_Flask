@@ -1,9 +1,16 @@
-from app import app
-from flask import render_template
-from .crud import *
+from flask import render_template, Blueprint
+from .crud import (
+    get_buildings_in_year_range,
+    grouped_by_year,
+    grouped_by_country,
+    get_all_buildings,
+    grouped_by_type,
+)
+
+views_bp = Blueprint("views", __name__)
 
 
-@app.route("/")
+@views_bp.route("/")
 def index():
     buildings_data = get_all_buildings()
     type_data = grouped_by_type()
