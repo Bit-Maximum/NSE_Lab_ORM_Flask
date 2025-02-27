@@ -80,3 +80,4 @@ def get_buildings_in_year_range(start_year=2000, end_year=2018):
         .filter(Building.year >= start_year, Building.year <= end_year)
     )
     return {"head": query.statement.columns.keys(), "body": query.all()}
+
